@@ -1,0 +1,26 @@
+<div class="page-header">
+    <h1>Details of project</h1>
+</div>
+
+
+<table class="table table-bordered">
+    <tbody>
+        <tr><th>job</th><td><%= project.job %></td></tr>
+        <tr><th>name</th><td><%= project.name %></td></tr>
+        <tr><th>phone</th><td><%= project.phone %></td></tr>
+        <tr><th>email</th><td><%= project.email %></td></tr>
+        <tr><th>zip</th><td><%= project.zip %></td></tr>
+        <tr><th>ip</th><td><%= project.ip %></td></tr>
+        <tr><th>leads</th><td><%= project.leads %></td></tr>
+        <tr><th>browser</th><td><%= project.browser %></td></tr>
+        <tr><th>createted</th><td><%= project.createted %></td></tr>
+        <tr><th>updated</th><td><%= project.updated %></td></tr>    
+    </tbody>
+</table>
+
+<div class="well">
+    <%- link_to('<i class="icon-edit icon-white"></i> Edit', path_to.edit_project(project), {class: 'btn btn-primary'}) %>
+    <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.project(project), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
+    or
+    <%- link_to('Back to index', path_to.projects()) %>
+</div>

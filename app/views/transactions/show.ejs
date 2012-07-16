@@ -1,0 +1,23 @@
+<div class="page-header">
+    <h1>Details of transaction</h1>
+</div>
+
+
+<table class="table table-bordered">
+    <tbody>
+        <tr><th>project</th><td><%= transaction.project %></td></tr>
+        <tr><th>job</th><td><%= transaction.job %></td></tr>
+        <tr><th>price</th><td><%= transaction.price %></td></tr>
+        <tr><th>cc_token</th><td><%= transaction.cc_token %></td></tr>
+        <tr><th>status</th><td><%= transaction.status %></td></tr>
+        <tr><th>created</th><td><%= transaction.created %></td></tr>
+        <tr><th>updated</th><td><%= transaction.updated %></td></tr>    
+    </tbody>
+</table>
+
+<div class="well">
+    <%- link_to('<i class="icon-edit icon-white"></i> Edit', path_to.edit_transaction(transaction), {class: 'btn btn-primary'}) %>
+    <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.transaction(transaction), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
+    or
+    <%- link_to('Back to index', path_to.transactions()) %>
+</div>

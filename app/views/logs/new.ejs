@@ -1,0 +1,11 @@
+<div class="page-header">
+    <h1>New log</h1>
+</div>
+
+<% form_for(log, {action: path_to.logs(), method: 'POST', id: "log_form", class: 'form-horizontal'}, function (form) { %>
+    <%- partial('logs/form.ejs', {locals: {form: form, log: log}}) %>
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> Create log', {class: 'btn btn-primary'}) %> or
+        <%- link_to('Cancel', path_to.logs(), {class: 'btn'}) %>
+    </div>
+<% });%>

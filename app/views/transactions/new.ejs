@@ -1,0 +1,11 @@
+<div class="page-header">
+    <h1>New transaction</h1>
+</div>
+
+<% form_for(transaction, {action: path_to.transactions(), method: 'POST', id: "transaction_form", class: 'form-horizontal'}, function (form) { %>
+    <%- partial('transactions/form.ejs', {locals: {form: form, transaction: transaction}}) %>
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> Create transaction', {class: 'btn btn-primary'}) %> or
+        <%- link_to('Cancel', path_to.transactions(), {class: 'btn'}) %>
+    </div>
+<% });%>
