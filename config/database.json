@@ -1,7 +1,9 @@
-{ "development":
-  { "driver":   "memory"
-  }
-, "test":
-  { "driver":   "memory"
+{
+  "development": {
+    "driver":   "mongoose",
+    "url":      "mongodb://oxygen:0xygenPro@ds035237.mongolab.com:35237/rails_certpro"
+  },
+  "test": {
+    "driver":   "memory"
   }
 }
