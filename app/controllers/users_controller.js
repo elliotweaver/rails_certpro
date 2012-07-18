@@ -25,9 +25,6 @@ action(function create() {
     
     //will become the data feed for the model
     var data = req.body.User;
-    delete data.cc_month;
-    delete data.cc_year;
-    delete data.cc_number;
     
     //update the timestamp
     data['created'] = data['updated'] = new Date().getTime();
@@ -97,7 +94,7 @@ action(function create() {
           delete data.cc_year;
           delete data.cc_number;
           //create the user
-          Muser.create(data, function (err, user) {
+          User.create(data, function (err, user) {
             if (err) {
                 flash('error', 'User can not be created');
                 render('new', {
@@ -105,8 +102,10 @@ action(function create() {
                     title: 'New user'
                 });
             } else {
-                flash('info', 'User created');
-                redirect(path_to.users());
+                Muser.update({_id: user.id}, data, function (err) {
+                  flash('info', 'User created');
+                  redirect(path_to.users());
+                });
             }
           });
         });//end braintree create
@@ -118,7 +117,7 @@ action(function create() {
         delete data.cc_year;
         delete data.cc_number;
         //create the user
-        Muser.create(data, function (err, user) {
+        User.create(data, function (err, user) {
           if (err) {
               flash('error', 'User can not be created');
               render('new', {
@@ -126,8 +125,10 @@ action(function create() {
                   title: 'New user'
               });
           } else {
-              flash('info', 'User created');
-              redirect(path_to.users());
+              Muser.update({_id: user.id}, data, function (err) {
+                flash('info', 'User created');
+                redirect(path_to.users());
+              });
           }
         });
       }
@@ -228,14 +229,16 @@ action(function update() {
           delete data.cc_year;
           delete data.cc_number;
           //update attributes
-          Muser.update({_id: this.user.id}, data, function (err) {
+          this.user.updateAttributes(data, function(err, user) {
             if (!err) {
                 flash('info', 'User updated');
                 redirect(path_to.user(this.user));
             } else {
-                flash('error', 'User can not be updated');
-                this.title = 'Edit user details';
-                render('edit');
+                Muser.update({_id: this.user.id}, data, function (err) {
+                  flash('error', 'User can not be updated');
+                  this.title = 'Edit user details';
+                  render('edit');
+                }.bind(this));
             }
           }.bind(this));
         }.bind(this));//end braintree create
@@ -247,14 +250,16 @@ action(function update() {
         delete data.cc_month;
         delete data.cc_year;
         delete data.cc_number;
-        Muser.update({_id: this.user.id}, data, function (err) {
+        this.user.updateAttributes(data, function(err, user) {
           if (!err) {
               flash('info', 'User updated');
               redirect(path_to.user(this.user));
           } else {
-              flash('error', 'User can not be updated');
-              this.title = 'Edit user details';
-              render('edit');
+              Muser.update({_id: this.user.id}, data, function (err) {
+                flash('error', 'User can not be updated');
+                this.title = 'Edit user details';
+                render('edit');
+              }.bind(this));
           }
         }.bind(this));
       }
