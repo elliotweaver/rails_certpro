@@ -1,10 +1,6 @@
 <%- errorMessagesFor(user) %>
-<div class="control-group">
-   <%- form.label("role", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("role") %>
-   </div>
-</div>
+<input type="hidden" name="User[hash]" value="<%- user.hash %>">
+<input type="hidden" name="User[salt]" value="<%- user.salt %>">
 <div class="control-group">
    <%- form.label("username", false, {class: "control-label"}) %>
    <div class="controls">
@@ -15,6 +11,30 @@
    <%- form.label("email", false, {class: "control-label"}) %>
    <div class="controls">
        <%- form.input("email") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("password", false, {class: "control-label"}) %>
+   <div class="controls">
+       <input type="password" id="User_password" name="User[password]" value="">
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("password_confirmation", false, {class: "control-label"}) %>
+   <div class="controls">
+       <input type="password" id="User_password_confirmation" name="User[password_confirmation]" value="">
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("role", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- fieldSelect('role', ['admin','contractor'], user.role) %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("status", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- fieldSelect('status', ['active','disabled'], user.status) %>
    </div>
 </div>
 <div class="control-group">
@@ -30,6 +50,36 @@
    </div>
 </div>
 <div class="control-group">
+   <%- form.label("address", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("address") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("address2", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("address2") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("city", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("city") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("state", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("state") %>
+   </div>
+</div>
+<div class="control-group">
+   <%- form.label("zip", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("zip") %>
+   </div>
+</div>
+<div class="control-group">
    <%- form.label("company", false, {class: "control-label"}) %>
    <div class="controls">
        <%- form.input("company") %>
@@ -42,9 +92,9 @@
    </div>
 </div>
 <div class="control-group">
-   <%- form.label("websitete", false, {class: "control-label"}) %>
+   <%- form.label("website", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("websitete") %>
+       <%- form.input("website") %>
    </div>
 </div>
 <div class="control-group">
@@ -60,44 +110,20 @@
    </div>
 </div>
 <div class="control-group">
-   <%- form.label("cc_token", false, {class: "control-label"}) %>
+   <%- form.label("cc_number", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("cc_token") %>
+       <%- form.input("cc_number") %>
    </div>
 </div>
 <div class="control-group">
-   <%- form.label("ip", false, {class: "control-label"}) %>
+   <%- form.label("cc_month", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("ip") %>
+       <%- fieldSelectMonth("cc_month", undefined === values ? "" : values.cc_month) %>
    </div>
 </div>
 <div class="control-group">
-   <%- form.label("browser", false, {class: "control-label"}) %>
+   <%- form.label("cc_year", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("browser") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("status", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("status") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("created", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("created") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("updated", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("updated") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("accessed", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("accessed") %>
+       <%- fieldSelectYear("cc_year", undefined === values ? "" : values.cc_year) %>
    </div>
 </div>

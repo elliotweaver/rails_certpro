@@ -1,5 +1,7 @@
 load('application');
 
+layout('admin');
+
 before(loadJob, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {
@@ -9,7 +11,13 @@ action('new', function () {
 });
 
 action(function create() {
-    Job.create(req.body.Job, function (err, job) {
+    
+    //will become the data feed for the model
+    var data = req.body.Job;
+    //update the timestamp
+    data['created'] = data['updated'] = new Date().getTime();
+  
+    Mjob.create(data, function (err, job) {
         if (err) {
             flash('error', 'Job can not be created');
             render('new', {
@@ -17,8 +25,10 @@ action(function create() {
                 title: 'New job'
             });
         } else {
-            flash('info', 'Job created');
-            redirect(path_to.jobs());
+            //Mjob.update({ _id: job.id }, {categories: data.categories}, function(err, up) {
+              flash('info', 'Job created');
+              redirect(path_to.jobs());
+            //});
         }
     });
 });
@@ -43,7 +53,13 @@ action(function edit() {
 });
 
 action(function update() {
-    this.job.updateAttributes(body.Job, function (err) {
+    
+    //will become the data feed for the model
+    var data = body.Job;
+    //update the timestamp
+    data['updated'] = new Date().getTime();
+  
+    Mjob.update({_id: this.job.id}, data, function (err) {
         if (!err) {
             flash('info', 'Job updated');
             redirect(path_to.job(this.job));
@@ -53,6 +69,7 @@ action(function update() {
             render('edit');
         }
     }.bind(this));
+    
 });
 
 action(function destroy() {
@@ -72,7 +89,10 @@ function loadJob() {
             redirect(path_to.jobs());
         } else {
             this.job = job;
-            next();
+            Mcategory.find({}).where('_id').in(job.categories).exec(function(err, docs) {
+              this.categories = docs;
+              next();
+            }.bind(this));
         }
     }.bind(this));
 }

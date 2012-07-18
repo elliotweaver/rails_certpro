@@ -14,14 +14,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Name</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% categories.forEach(function (category) { %>
                         <tr>
-                            <td><strong><%- link_to('category #' + category.id, path_to.category(category)) %></strong></td>
+                            <td><strong><%- link_to(category.name, path_to.category(category)) %></strong></td>
                             <td>
                                 <%- link_to('<i class="icon-edit"></i> Edit', path_to.edit_category(category), {class: 'btn btn-mini'}) %>
                                 <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.category(category), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'}) %>        

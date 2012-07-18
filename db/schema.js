@@ -21,32 +21,68 @@
 
 */
 
+customSchema(function () {
+
+    var mongoose = require('mongoose');
+    mongoose.connect('mongodb://oxygen:0xygenPro@ds035237.mongolab.com:35237/rails_certpro');
+    var Schema = mongoose.Schema, ObjectId = Schema.ObjectId;
+
+    var Mcategory = new Schema({
+      name: String,
+      created: String,
+      updated: String
+    });
+    module.exports['Mcategory'] = mongoose.model('category', Mcategory);
+    
+    var Mjob = new Schema({
+      name: String,
+      description: String,
+      price: String,
+      categories: [String],
+      created: String,
+      updated: String
+    });
+    module.exports['Mjob'] = mongoose.model('Job', Mjob);
+
+});
+
 var Category = describe('Category', function () {
     property('name', String);
-    property('author', String);
     property('created', String);
     property('updated', String);
-});var Job = describe('Job', function () {
+});
+var Job = describe('Job', function () {
     property('name', String);
     property('description', String);
     property('price', String);
-    property('author', String);
+    property('categories', String);
     property('created', String);
     property('updated', String);
-});var User = describe('User', function () {
+});
+var User = describe('User', function () {
     property('role', String);
     property('username', String);
     property('email', String);
+    property('password', String);
+    property('hash', String);
+    property('salt', String);
     property('first', String);
     property('last', String);
+    property('address', String);
+    property('address2', String);
+    property('city', String);
+    property('state', String);
+    property('zip', String);
     property('company', String);
     property('dob', String);
-    property('websitete', String);
+    property('website', String);
     property('phone', String);
     property('cell', String);
     property('cc_token', String);
-    property('ip', String);
-    property('browser', String);
+    property('cc_last4', String);
+    property('cc_type', String);
+    property('cc_customer', String);
+    //property('location', String);
     property('status', String);
     property('created', String);
     property('updated', String);

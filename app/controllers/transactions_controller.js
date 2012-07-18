@@ -1,5 +1,7 @@
 load('application');
 
+layout('admin');
+
 before(loadTransaction, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {

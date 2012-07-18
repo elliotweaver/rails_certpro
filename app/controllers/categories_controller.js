@@ -1,5 +1,7 @@
 load('application');
 
+layout('admin');
+
 before(loadCategory, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {
@@ -9,7 +11,13 @@ action('new', function () {
 });
 
 action(function create() {
-    Category.create(req.body.Category, function (err, category) {
+    
+    //will become the data feed for the model
+    var data = req.body.Category;
+    //update the timestamp
+    data['created'] = data['updated'] = new Date().getTime();
+    
+    Category.create(data, function (err, category) {
         if (err) {
             flash('error', 'Category can not be created');
             render('new', {
@@ -43,7 +51,13 @@ action(function edit() {
 });
 
 action(function update() {
-    this.category.updateAttributes(body.Category, function (err) {
+    
+    //will become the data feed for the model
+    var data = req.body.Category;
+    //update the timestamp
+    data['updated'] = new Date().getTime();
+    
+    this.category.updateAttributes(data, function (err) {
         if (!err) {
             flash('info', 'Category updated');
             redirect(path_to.category(this.category));
@@ -64,6 +78,16 @@ action(function destroy() {
         }
         send("'" + path_to.categories() + "'");
     });
+});
+
+action(function getCategories() {
+  Category.all(function (err, categories) {
+    var items = []
+    categories.forEach(function(category) {
+      items.push({key: category.id, value: category.name});
+    });
+    send(items);
+  });
 });
 
 function loadCategory() {

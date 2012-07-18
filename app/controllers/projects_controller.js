@@ -1,5 +1,7 @@
 load('application');
 
+layout('admin');
+
 before(loadProject, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {
