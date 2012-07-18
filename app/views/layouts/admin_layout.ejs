@@ -2,8 +2,8 @@
 <html lang="en">
     <head>
         <title><%= title %></title>
-        <%- stylesheet_link_tag('bootstrap', 'style', 'bootstrap-responsive', 'fcbkcomplete') %>
-        <%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'jquery.fcbkcomplete.min', 'bootstrap', 'rails', 'application', 'admin') %>
+        <%- stylesheet_link_tag('bootstrap', 'style', 'bootstrap-responsive', 'fcbkcomplete', 'http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables.css', 'http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables_themeroller.css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/sunny/jquery-ui.css') %>
+        <%- javascript_include_tag('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/jquery.dataTables.min.js', 'jquery.fcbkcomplete.min', 'bootstrap', 'rails', 'application', 'admin') %>
         <%- csrf_meta_tag() %>
     </head>
     <body>

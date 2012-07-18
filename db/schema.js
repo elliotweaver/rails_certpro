@@ -124,7 +124,12 @@ var Project = describe('Project', function () {
     property('name', String);
     property('phone', String);
     property('email', String);
+    property('address', String);
+    property('address2', String);
+    property('city', String);
+    property('state', String);
     property('zip', String);
+    property('location', String);
     property('log', String);
     property('status', String);
     property('created', String);
