@@ -1,6 +1,5 @@
 exports.routes = function (map) {
     map.resources('logs', {path: 'admin/logs'});
-    map.resources('transactions', {path: 'admin/transactions'});
     map.resources('leads', {path: 'admin/leads'});
     map.resources('projects', {path: 'admin/projects'});
     map.resources('users', {path: 'admin/users'});

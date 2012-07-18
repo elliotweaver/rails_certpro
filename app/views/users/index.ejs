@@ -14,14 +14,16 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% users.forEach(function (user) { %>
                         <tr>
-                            <td><strong><%- link_to('user #' + user.id, path_to.user(user)) %></strong></td>
+                            <td><strong><%- link_to(user.username, path_to.user(user)) %></strong></td>
+                            <td><strong><%- link_to(user.email, path_to.user(user)) %></strong></td>
                             <td>
                                 <%- link_to('<i class="icon-edit"></i> Edit', path_to.edit_user(user), {class: 'btn btn-mini'}) %>
                                 <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.user(user), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'}) %>        

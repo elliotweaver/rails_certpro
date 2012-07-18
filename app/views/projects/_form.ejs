@@ -30,32 +30,14 @@
    </div>
 </div>
 <div class="control-group">
-   <%- form.label("ip", false, {class: "control-label"}) %>
+   <%- form.label("log", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("ip") %>
+       <%- form.textarea("log") %>
    </div>
 </div>
 <div class="control-group">
-   <%- form.label("leads", false, {class: "control-label"}) %>
+   <%- form.label("status", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("leads") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("browser", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("browser") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("createted", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("createted") %>
-   </div>
-</div>
-<div class="control-group">
-   <%- form.label("updated", false, {class: "control-label"}) %>
-   <div class="controls">
-       <%- form.input("updated") %>
+       <%- fieldSelect('status', ['init','process','success','failed'], lead.status) %>
    </div>
 </div>

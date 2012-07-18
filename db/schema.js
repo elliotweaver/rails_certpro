@@ -113,38 +113,35 @@ var User = describe('User', function () {
     property('cc_last4', String);
     property('cc_type', String);
     property('cc_customer', String);
-    //property('location', String);
+    property('location', String);
     property('status', String);
     property('created', String);
     property('updated', String);
     property('accessed', String);
-});var Project = describe('Project', function () {
+});
+var Project = describe('Project', function () {
     property('job', String);
     property('name', String);
     property('phone', String);
     property('email', String);
     property('zip', String);
-    property('ip', String);
-    property('leads', String);
-    property('browser', String);
-    property('createted', String);
-    property('updated', String);
-});var Lead = describe('Lead', function () {
-    property('contractor', String);
-    property('project', String);
-    property('transaction', String);
+    property('log', String);
     property('status', String);
     property('created', String);
     property('updated', String);
-});var Transaction = describe('Transaction', function () {
+});
+var Lead = describe('Lead', function () {
+    property('contractor', String);
     property('project', String);
     property('job', String);
     property('price', String);
     property('cc_token', String);
+    property('log', String);
     property('status', String);
     property('created', String);
     property('updated', String);
-});var Log = describe('Log', function () {
+});
+var Log = describe('Log', function () {
     property('name', String);
     property('severity', String);
     property('note', String);
