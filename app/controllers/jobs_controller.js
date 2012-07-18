@@ -25,10 +25,8 @@ action(function create() {
                 title: 'New job'
             });
         } else {
-            //Mjob.update({ _id: job.id }, {categories: data.categories}, function(err, up) {
-              flash('info', 'Job created');
-              redirect(path_to.jobs());
-            //});
+            flash('info', 'Job created');
+            redirect(path_to.jobs());
         }
     });
 });

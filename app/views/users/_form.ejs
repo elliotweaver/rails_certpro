@@ -1,6 +1,4 @@
 <%- errorMessagesFor(user) %>
-<input type="hidden" name="User[hash]" value="<%- user.hash %>">
-<input type="hidden" name="User[salt]" value="<%- user.salt %>">
 <div class="control-group">
    <%- form.label("username", false, {class: "control-label"}) %>
    <div class="controls">

@@ -25,6 +25,10 @@ action(function create() {
     
     //will become the data feed for the model
     var data = req.body.User;
+    delete data.cc_month;
+    delete data.cc_year;
+    delete data.cc_number;
+    
     //update the timestamp
     data['created'] = data['updated'] = new Date().getTime();
     
@@ -58,7 +62,12 @@ action(function create() {
     geo.geocode(address, function (err, result) {
       
       //set location as an array
-      data.location = [ result.results[0].geometry.location.lat, result.results[0].geometry.location.lng ];
+      if (result.results[0]) {
+        data.location = [ result.results[0].geometry.location.lat, result.results[0].geometry.location.lng ];
+      }
+      else {
+        data.location = [ 0, 0 ];
+      }
       
       //process cc if a number is present
       if (req.body.User['cc_number']) {
@@ -84,8 +93,11 @@ action(function create() {
             data.cc_type = result.customer.creditCards[0].cardType;
             data.cc_customer = result.customer.creditCards[0].customerId;
           }
+          delete data.cc_month;
+          delete data.cc_year;
+          delete data.cc_number;
           //create the user
-          User.create(data, function (err, user) {
+          Muser.create(data, function (err, user) {
             if (err) {
                 flash('error', 'User can not be created');
                 render('new', {
@@ -102,8 +114,11 @@ action(function create() {
       
       //cc number not present so just create the user
       else {
+        delete data.cc_month;
+        delete data.cc_year;
+        delete data.cc_number;
         //create the user
-        User.create(data, function (err, user) {
+        Muser.create(data, function (err, user) {
           if (err) {
               flash('error', 'User can not be created');
               render('new', {
@@ -151,10 +166,10 @@ action(function update() {
     //not clear this is perfectly needed. for now control custom field values on error
     this.values = req.body.User;
     
-    //create salt and hash password
+    //create hash password
     if (req.body.User['password'] != '') {  
-      var hash = bcrypt.hashSync(req.body.User['password'], data.salt);
-      var hash2 = bcrypt.hashSync(req.body.User['password_confirmation'], data.salt);
+      var hash = bcrypt.hashSync(req.body.User['password'], this.user.salt);
+      var hash2 = bcrypt.hashSync(req.body.User['password_confirmation'], this.user.salt);
       data.hash = hash;
       req.body.User['password'] = hash;
       req.body.User['password_confirmation'] = hash2;
@@ -174,9 +189,6 @@ action(function update() {
       }
     });
     
-    //save the object for later use down stream
-    var that = this;
-    
     //setup address string for use with geolocaiton
     var address = req.body.User["address"]+', '+req.body.User["city"]+', '+req.body.User["state"]+' '+req.body.User["zip"];
     
@@ -184,8 +196,10 @@ action(function update() {
     geo.geocode(address, function (err, result) {
       
       //save location result as an array
-      data.location = [ result.results[0].geometry.location.lat, result.results[0].geometry.location.lng ];
-      
+      if (result.results[0]) {
+        data.location = [ result.results[0].geometry.location.lat, result.results[0].geometry.location.lng ];
+      }
+        
       //process cc if a number is present
       if (req.body.User['cc_number']) {
         gateway.customer.create({
@@ -210,36 +224,42 @@ action(function update() {
             data.cc_type = result.customer.creditCards[0].cardType;
             data.cc_customer = result.customer.creditCards[0].customerId;
           }
+          delete data.cc_month;
+          delete data.cc_year;
+          delete data.cc_number;
           //update attributes
-          that.user.updateAttributes(data, function (err) {
+          Muser.update({_id: this.user.id}, data, function (err) {
             if (!err) {
                 flash('info', 'User updated');
-                redirect(path_to.user(that.user));
+                redirect(path_to.user(this.user));
             } else {
                 flash('error', 'User can not be updated');
-                that.title = 'Edit user details';
+                this.title = 'Edit user details';
                 render('edit');
             }
-          }.bind(that));
-        });//end braintree create
+          }.bind(this));
+        }.bind(this));//end braintree create
       }
       
       //cc number not present so just update attributes
       else {
         //update attributes
-        that.user.updateAttributes(data, function (err) {
+        delete data.cc_month;
+        delete data.cc_year;
+        delete data.cc_number;
+        Muser.update({_id: this.user.id}, data, function (err) {
           if (!err) {
               flash('info', 'User updated');
-              redirect(path_to.user(that.user));
+              redirect(path_to.user(this.user));
           } else {
               flash('error', 'User can not be updated');
-              that.title = 'Edit user details';
+              this.title = 'Edit user details';
               render('edit');
           }
-        }.bind(that));
+        }.bind(this));
       }
       
-    });//end geolocation
+    }.bind(this));//end geolocation
   
 });
 

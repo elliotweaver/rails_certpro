@@ -27,12 +27,43 @@ customSchema(function () {
     mongoose.connect('mongodb://oxygen:0xygenPro@ds035237.mongolab.com:35237/rails_certpro');
     var Schema = mongoose.Schema, ObjectId = Schema.ObjectId;
 
+    var Muser = new Schema({
+      role: String,
+      username: String,
+      email: String,
+      password: String,
+      hash: String,
+      salt: String,
+      first: String,
+      last: String,
+      address: String,
+      address2: String,
+      city: String,
+      state: String,
+      zip: String,
+      company: String,
+      dob: String,
+      website: String,
+      phone: String,
+      cell: String,
+      cc_token: String,
+      cc_last4: String,
+      cc_type: String,
+      cc_customer: String,
+      location: [Number],
+      status: String,
+      created: String,
+      updated: String,
+      accessed: String
+  }, { strict: true });
+    module.exports['Muser'] = mongoose.model('User', Muser); 
+    
     var Mcategory = new Schema({
       name: String,
       created: String,
       updated: String
-    });
-    module.exports['Mcategory'] = mongoose.model('category', Mcategory);
+    }, { strict: true });
+    module.exports['Mcategory'] = mongoose.model('Category', Mcategory);
     
     var Mjob = new Schema({
       name: String,
@@ -41,7 +72,7 @@ customSchema(function () {
       categories: [String],
       created: String,
       updated: String
-    });
+    }, { strict: true });
     module.exports['Mjob'] = mongoose.model('Job', Mjob);
 
 });
