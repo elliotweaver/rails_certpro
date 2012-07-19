@@ -16,4 +16,5 @@ exports.routes = function (map) {
     map.get('ajax/getJobs', 'jobs#getJobs');
     map.get('ajax/getJobsInCategory', 'jobs#getJobsInCategory');
     map.get('ajax/searchContractors', 'users#nearbyContractors');
+    map.get('ajax/createProject', 'projects#createProject');
 };

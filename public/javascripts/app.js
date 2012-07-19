@@ -98,6 +98,7 @@ Findpro.finderController = Em.ArrayController.create({
   state: null,
   step: 'zip',
   isLoading: false,
+  isSending: false,
   isStepZip: true,
   isStepCategory: false,
   isStepJob: false,
@@ -150,6 +151,15 @@ Findpro.finderController = Em.ArrayController.create({
   },
   sendRequest: function() {
     var me = this;
-    
+    me.set('isSending', true);
+    $.ajax({
+      url: "/ajax/createProject?zip="+me.get('zip')+"&job="+me.get('job')+"&name="+me.get('name')+"&phone="+me.get('phone')+"&email="+me.get('email'),
+      success: function(data) {
+        me.set('isSending', false);
+        me.set('isStepInfo', false);
+        me.set('isStepSuccess', true);
+        me.set('step', 'success'); 
+      }
+    });
   }
 });

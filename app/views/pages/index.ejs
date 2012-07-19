@@ -7,6 +7,13 @@
       </div>
     {{/if}}
     
+    <!-- Sending -->
+    {{#if Findpro.finderController.isSending}}
+      <div class="loading">
+        <img src="/images/sending.gif" />
+      </div>
+    {{/if}}
+    
     <!-- Zipcode -->
     {{#if Findpro.finderController.isStepZip}}
       <div class="step-zip">
