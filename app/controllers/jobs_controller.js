@@ -117,6 +117,26 @@ action(function destroy() {
     });
 });
 
+action(function getJobs() {
+  Job.all(function (err, jobs) {
+    var items = [];
+    jobs.forEach(function(job) {
+      items.push({key: job.id, value: job.name+' ($'+job.price+')'});
+    });
+    send(items);
+  });
+});
+
+action(function getJobsInCategory() {
+  Mjob.find({}).where('categories', req.query.category).exec(function (err, jobs) {
+    var items = [];
+    jobs.forEach(function(job) {
+      items.push({key: job.id, value: job.name});
+    });
+    send(items);
+  });
+});
+
 function loadJob() {
     Job.find(params.id, function (err, job) {
         if (err || !job) {

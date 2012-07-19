@@ -15,6 +15,13 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th class="hidden">Contractor</th>
+                        <th class="hidden">Project</th>
+                        <th class="hidden">Job</th>
+                        <th class="hidden">Price</th>
+                        <th class="hidden">Token</th>
+                        <th class="hidden">Log</th>
+                        <th class="hidden">Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -22,6 +29,13 @@
                     <% leads.forEach(function (lead) { %>
                         <tr>
                             <td><strong><%- link_to('lead #' + lead.id, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.contractor, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.project, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.job, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.price, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.cc_token, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.log, path_to.lead(lead)) %></strong></td>
+                            <td class="hidden"><strong><%- link_to(lead.status, path_to.lead(lead)) %></strong></td>
                             <td>
                                 <%- link_to('<i class="icon-edit"></i> Edit', path_to.edit_lead(lead), {class: 'btn btn-mini'}) %>
                                 <%- link_to('<i class="icon-remove icon-white"></i> Delete', path_to.lead(lead), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'}) %>        

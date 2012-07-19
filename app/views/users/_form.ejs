@@ -125,3 +125,9 @@
        <%- fieldSelectYear("cc_year", undefined === values ? "" : values.cc_year) %>
    </div>
 </div>
+<div class="control-group">
+   <%- form.label("jobs", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- fieldAutoSelect("jobs", jobs) %>
+   </div>
+</div>

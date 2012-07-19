@@ -6,6 +6,12 @@
    </div>
 </div>
 <div class="control-group">
+   <%- form.label("price", false, {class: "control-label"}) %>
+   <div class="controls">
+       <%- form.input("price") %>
+   </div>
+</div>
+<div class="control-group">
    <%- form.label("name", false, {class: "control-label"}) %>
    <div class="controls">
        <%- form.input("name") %>
@@ -62,6 +68,6 @@
 <div class="control-group">
    <%- form.label("status", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- fieldSelect('status', ['init','process','success','failed'], lead.status) %>
+       <%- fieldSelect('status', ['init','process','success','failed'], project.status) %>
    </div>
 </div>

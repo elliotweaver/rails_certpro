@@ -95,6 +95,7 @@ action(function create() {
           delete data.cc_number;
           //create the user
           User.create(data, function (err, user) {
+            console.log(err);
             if (err) {
                 flash('error', 'User can not be created');
                 render('new', {
@@ -251,14 +252,14 @@ action(function update() {
         delete data.cc_year;
         delete data.cc_number;
         this.user.updateAttributes(data, function(err, user) {
-          if (!err) {
-              flash('info', 'User updated');
-              redirect(path_to.user(this.user));
+          if (err) {
+            flash('error', 'User can not be updated');
+            this.title = 'Edit user details';
+            render('edit');
           } else {
               Muser.update({_id: this.user.id}, data, function (err) {
-                flash('error', 'User can not be updated');
-                this.title = 'Edit user details';
-                render('edit');
+                flash('info', 'User updated');
+                redirect(path_to.user(this.user));
               }.bind(this));
           }
         }.bind(this));
@@ -279,13 +280,41 @@ action(function destroy() {
     });
 });
 
+action(function nearbyContractors() {
+  var hasContractors = false;
+  var values = req.query;
+  geo.geocode(values.zip, function (err, result) {
+    if (err) {
+      send(hasContractors);
+    }
+    else {
+      var location = [ result.results[0].geometry.location.lat, result.results[0].geometry.location.lng ];
+      Muser.find({})
+        .where('status', 'active')
+        .where('role', 'contractor')
+        .where('jobs', values.job)
+        .where('location').near(location)
+        .exec(function (err, contractors) {
+          var num = 0;
+          contractors.forEach(function(contractor) {
+            hasContractors = true;
+          });
+          send(hasContractors);
+      });
+    }
+  });
+});
+
 function loadUser() {
     User.find(params.id, function (err, user) {
         if (err || !user) {
             redirect(path_to.users());
         } else {
             this.user = user;
-            next();
+            Mjob.find({}).where('_id').in(user.jobs).exec(function(err, docs) {
+              this.jobs = docs;
+              next();
+            }.bind(this));
         }
     }.bind(this));
 }

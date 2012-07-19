@@ -1,5 +1,15 @@
 module.exports = {
 
+    fieldAutoSelect: function(name, values) {
+      var data = sel = '';
+      data += '<select id="User_'+name+'" name="User['+name+'][]" multiple="multiple">';
+      for(i = 0; i < values.length; i++) {
+        data += '<option class="selected" selected="selected" value="'+values[i]._id+'">'+values[i].name+' ($'+values[i].price+')</option>';
+      }
+      data += '</select>';
+      return data;
+    },
+    
     fieldSelect: function(name, attr, value) {
       var data = sel = '';
       data += '<select id="User_'+name+'" name="User['+name+']">';

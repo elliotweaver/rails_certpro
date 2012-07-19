@@ -39,7 +39,7 @@ action(function create() {
   
     Lead.create(data, function (err, lead) {
       if (!err) {
-        //process if reqested
+        //process if requested
         if (lead.status === 'process') {
           gateway.transaction.sale({
             amount: lead.price,

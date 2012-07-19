@@ -82,7 +82,7 @@ action(function destroy() {
 
 action(function getCategories() {
   Category.all(function (err, categories) {
-    var items = []
+    var items = [];
     categories.forEach(function(category) {
       items.push({key: category.id, value: category.name});
     });

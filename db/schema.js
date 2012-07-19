@@ -51,6 +51,7 @@ customSchema(function () {
       cc_type: String,
       cc_customer: String,
       location: [Number],
+      jobs: [String],
       status: String,
       created: String,
       updated: String,
@@ -74,6 +75,25 @@ customSchema(function () {
       updated: String
     }, { strict: true });
     module.exports['Mjob'] = mongoose.model('Job', Mjob);
+    
+    var Mproject = new Schema({
+      job: String,
+      price: String,
+      name: String,
+      phone: String,
+      email: String,
+      address: String,
+      address2: String,
+      city: String,
+      state: String,
+      zip: String,
+      location: [Number],
+      log: String,
+      status: String,
+      created: String,
+      updated: String
+    }, { strict: true });
+    module.exports['Mproject'] = mongoose.model('Project', Mproject);
 
 });
 
@@ -114,6 +134,7 @@ var User = describe('User', function () {
     property('cc_type', String);
     property('cc_customer', String);
     property('location', String);
+    property('jobs', String);
     property('status', String);
     property('created', String);
     property('updated', String);
@@ -121,6 +142,7 @@ var User = describe('User', function () {
 });
 var Project = describe('Project', function () {
     property('job', String);
+    property('price', String);
     property('name', String);
     property('phone', String);
     property('email', String);

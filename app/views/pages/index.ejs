@@ -1,0 +1,91 @@
+  <script type="text/x-handlebars">
+    
+    <!-- Loading -->
+    {{#if Findpro.finderController.isLoading}}
+      <div class="loading">
+        <img src="/images/loading.gif" />
+      </div>
+    {{/if}}
+    
+    <!-- Zipcode -->
+    {{#if Findpro.finderController.isStepZip}}
+      <div class="step-zip">
+        {{view Findpro.zipTextField placeholder="Zipcode" valueBinding="Findpro.finderController.zip"}}
+        <button {{action "submitZip" target="Findpro.finderController"}}>Begin!</button>
+      </div>
+    {{/if}}
+    
+    <!-- Category -->
+    {{#if Findpro.finderController.isStepCategory}}
+      <div class="step-category">
+        {{#each Findpro.categoryController}}
+          {{#view Findpro.CategoryView contentBinding="this"}}
+            <a {{action "selectCategory" }}>{{content.value}}</a>
+          {{/view}}
+        {{/each}}
+      </div>
+    {{/if}}
+    
+    <!-- Job -->
+    {{#if Findpro.finderController.isStepJob}}
+      <div class="step-job">
+        {{#each Findpro.jobController}}
+          {{#view Findpro.JobView contentBinding="this"}}
+            <a {{action "selectJob" }}>{{content.value}}</a>
+          {{/view}}
+        {{/each}}
+      </div>
+    {{/if}}
+    
+    <!-- Searching -->
+    {{#if Findpro.finderController.isStepSearch}}
+      <div class="step-searching">
+        <img src="/images/searching.gif" />
+      </div>
+    {{/if}}
+    
+    <!-- Info -->
+    {{#if Findpro.finderController.isStepInfo}}
+      <div class="step-info">
+        {{view Findpro.nameTextField placeholder="Name" valueBinding="Findpro.finderController.name"}}
+        <br>
+        {{view Findpro.phoneTextField placeholder="Phone" valueBinding="Findpro.finderController.phone"}}
+        <br>
+        {{view Findpro.emailTextField placeholder="Email" valueBinding="Findpro.finderController.email"}}
+        <br>
+        {{view Findpro.descriptionTextArea placeholder="Description of work" valueBinding="Findpro.finderController.description"}}
+        <br>
+        <button {{action "sendRequest" target="Findpro.finderController"}}>Send Request!</button>
+      </div>
+    {{/if}}
+    
+    <!-- Success -->
+    {{#if Findpro.finderController.isStepSuccess}}
+      <div class="step-success">
+        Success
+      </div>
+    {{/if}}
+    
+    <!-- Failed -->
+    {{#if Findpro.finderController.isStepFailed}}
+      <div class="step-failed">
+        Failed
+      </div>
+    {{/if}}
+    
+    <!-- Results -->
+    <div class="results">
+      <ul>
+        <li>Zip: {{Findpro.finderController.zip}}</li>
+        <li>Category: {{Findpro.finderController.category}}</li>
+        <li>Job: {{Findpro.finderController.job}}</li>
+        <li>Step: {{Findpro.finderController.step}}</li>
+        <li>Name: {{Findpro.finderController.name}}</li>
+        <li>Phone: {{Findpro.finderController.phone}}</li>
+        <li>Email: {{Findpro.finderController.email}}</li>
+        <li>Description: {{Findpro.finderController.description}}</li>
+      </ul>
+    </div>
+    
+    
+  </script>

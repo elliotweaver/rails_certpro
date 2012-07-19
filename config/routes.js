@@ -10,6 +10,10 @@ exports.routes = function (map) {
     // feel free to remove generic routes
     //map.all(':controller/:action');
     //map.all(':controller/:action/:id');
+    map.get('/', 'pages#index');
     map.get('admin', 'users#index');
     map.get('ajax/getCategories', 'categories#getCategories');
+    map.get('ajax/getJobs', 'jobs#getJobs');
+    map.get('ajax/getJobsInCategory', 'jobs#getJobsInCategory');
+    map.get('ajax/searchContractors', 'users#nearbyContractors');
 };
