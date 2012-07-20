@@ -155,10 +155,18 @@ Findpro.finderController = Em.ArrayController.create({
     $.ajax({
       url: "/ajax/createProject?zip="+me.get('zip')+"&job="+me.get('job')+"&name="+me.get('name')+"&phone="+me.get('phone')+"&email="+me.get('email'),
       success: function(data) {
-        me.set('isSending', false);
-        me.set('isStepInfo', false);
-        me.set('isStepSuccess', true);
-        me.set('step', 'success'); 
+        if (data.errors.length) {
+          me.set('isSending', false);
+          me.set('isStepInfo', false);
+          me.set('isStepFailed', true);
+          me.set('step', 'failed'); 
+        }
+        else {
+          me.set('isSending', false);
+          me.set('isStepInfo', false);
+          me.set('isStepSuccess', true);
+          me.set('step', 'success');
+        }
       }
     });
   }
