@@ -21,7 +21,10 @@ function requireLogin() {
           redirect('/login');
       } else {
           this.user = user;
-          next();
+          Mjob.find({}).where('_id').in(user.jobs).exec(function(err, docs) {
+            this.jobs = docs;
+            next();
+          }.bind(this));
       }
     }.bind(this));
   }

@@ -16,6 +16,12 @@ action('login', function () {
   render();
 });
 
+action('signup', function () {
+  this.title = 'Contractor Signup';
+  this.values = req.body.User;
+  render();
+});
+
 action('loginPost', function () {
   this.title = 'User Login';
   Muser.find({}).where('username', body.username).exec(function(err, docs) {

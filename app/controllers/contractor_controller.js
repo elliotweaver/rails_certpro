@@ -6,6 +6,7 @@ before(use('requireLogin'));
 
 action('index', function () {
     this.title = 'Contractor';
+    this.values = req.body.User;
     Lead.all({where: {contractor: req.session.user_id}},function (err, leads) {
       var left = leads.length,
         data = [];
