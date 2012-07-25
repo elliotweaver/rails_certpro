@@ -94,6 +94,19 @@ customSchema(function () {
       updated: String
     }, { strict: true });
     module.exports['Mproject'] = mongoose.model('Project', Mproject);
+    
+    var Mlead = new Schema({
+      contractor: String,
+      project: String,
+      job: String,
+      price: String,
+      cc_token: String,
+      log: String,
+      status: String,
+      created: String,
+      updated: String
+    }, { strict: true });
+    module.exports['Mlead'] = mongoose.model('Lead', Mlead);
 
 });
 

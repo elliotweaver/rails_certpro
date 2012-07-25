@@ -1,1 +1,42 @@
-Contractor Page
+<div class="page-header">
+    <h1>Contractor</h1>
+</div>
+
+<h2>Leads</h2>
+
+<div class="row">
+    <div class="span12">
+        <% if (leads.length > 0) { %>
+            <table class="table table-striped data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Description</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% leads.forEach(function (lead) { %>
+                        <tr>
+                            <td><strong><%- lead.info.name %></strong></td>
+                            <td><strong><%- lead.info.email %></strong></td>
+                            <td><strong><%- lead.info.phone %></strong></td>
+                            <td><strong><%- lead.info.description %></strong></td>
+                            <td><strong><%- lead.info.created %></strong></td>
+                        </tr>
+                    <% }); %>        
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="alert alert-block alert-info">
+                <strong>No leads yet.</strong> 
+            </p>
+        <% } %>
+    </div>
+</div>
+
+<hr>
+
+<h2>Settings</h2>
