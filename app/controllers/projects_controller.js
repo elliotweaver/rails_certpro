@@ -2,6 +2,7 @@ load('application');
 
 layout('admin');
 
+before(use('requireAdmin'), {except: 'createProject'});
 before(loadProject, {only: ['show', 'edit', 'update', 'destroy']});
 
 var braintree = require('braintree/lib/braintree');
@@ -366,10 +367,12 @@ action(function createProject() {
                 .where('status', 'active')
                 .where('role', 'contractor')
                 .where('jobs', project.job)
-                .where('location').near(project.location)
+                .where('location').near(project.location).maxDistance(.5)
+                .limit(5)
                 .exec(function(err, contractors) {
-                  var total = num = 0;
-                  contractors.every(function(contractor) {
+                  console.log(contractors);
+                  send(report);
+                  contractors.forEach(function(contractor) {
                     var vals = {};
                     vals.contractor = contractor.id;
                     vals.project = project.id;
@@ -381,7 +384,7 @@ action(function createProject() {
                     Lead.create(vals, function(err, lead) {
                       console.log('creating');
                       if (err) {
-                        return true;
+                        console.log(err);
                       }
                       else {
                         gateway.transaction.sale({
@@ -389,37 +392,25 @@ action(function createProject() {
                           paymentMethodToken: lead.cc_token
                         }, function (err, result) {
                           console.log('after sale');
-                          ++num;
                           if (err || !result.success) {
                             //error => set to fail
                             lead.updateAttributes({status: 'failed'}, function(err, lead) {
-                              if (num == contractors.length) {
-                                project.updateAttributes({status: 'success'}, function(err, docs) {
-                                  send(report);
-                                  return false;
-                                }.bind(this));
-                              }
-                              else {
-                                return true;
+                              if (err) {
+                                console.log(err);
                               }
                             });
                           }
                           else {
                             lead.updateAttributes({status: 'success'}, function(err, lead) {
-                              if (++total == 3 || num == contractors.length) {
-                                Mproject.update({'_id': project._id}, {status: 'success'}, function(err, docs) {
-                                  send(report);
-                                  return false;
-                                }.bind(this));
-                              }
-                              return true;
+                                if (err) {
+                                  console.log(err);
+                                }
                             }.bind(this));
                           }
                         });//end lead update
                       }
                     });//end lead create
-                  });//end every
-                  
+                  });//end forEach
                 }.bind(this));//end find contractors
             }
           }.bind(this));//end mproject create
@@ -429,9 +420,6 @@ action(function createProject() {
     }
     
   });//end find job
-  
-  
-  
   
   
 });

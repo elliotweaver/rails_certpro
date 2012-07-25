@@ -86,6 +86,7 @@ Findpro.jobController = Em.ArrayController.create({
 Findpro.finderController = Em.ArrayController.create({
   content: [],
   zip: null,
+  e_zip: null,
   category: null,
   job: null,
   name: null,
@@ -108,11 +109,19 @@ Findpro.finderController = Em.ArrayController.create({
   isStepFailed: false,
   submitZip: function() {
     var me = this;
-    me.set('isStepZip', false);
-    me.set('isStepCategory', true);
-    me.set('step', 'category');
-    me.set('isLoading', true);
-    Findpro.categoryController.getCategories();
+    var isValidZip = /^[0-9]{5}(?:-[0-9]{4})?$/.test(me.get('zip'));
+    if (isValidZip) {
+      me.set('e_zip', null);
+      me.set('isStepZip', false);
+      me.set('isStepCategory', true);
+      me.set('step', 'category');
+      me.set('isLoading', true);
+      Findpro.categoryController.getCategories();
+    }
+    else {
+      me.set('e_zip', 'Enter a valid zip code');
+    }
+    
   },
   setCategory: function(val) {
     var me = this;

@@ -7,7 +7,8 @@ jQuery(function ($) {
   //DataTable init
   $(".data-table").dataTable({
     "bJQueryUI": true,
-    "sPaginationType": "full_numbers"
+    "sPaginationType": "full_numbers",
+    "bStateSave": true
   });
   
 });

@@ -2,6 +2,7 @@ load('application');
 
 layout('admin');
 
+before(use('requireAdmin'));
 before(loadLead, {only: ['show', 'edit', 'update', 'destroy']});
 
 var braintree = require('braintree/lib/braintree');

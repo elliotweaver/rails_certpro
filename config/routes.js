@@ -11,7 +11,11 @@ exports.routes = function (map) {
     //map.all(':controller/:action');
     //map.all(':controller/:action/:id');
     map.get('/', 'pages#index');
+    map.get('logout', 'pages#logout');
+    map.get('login', 'pages#login');
+    map.post('login', 'pages#loginPost');
     map.get('admin', 'users#index');
+    map.get('contractor', 'contractor#index');
     map.get('ajax/getCategories', 'categories#getCategories');
     map.get('ajax/getJobs', 'jobs#getJobs');
     map.get('ajax/getJobsInCategory', 'jobs#getJobsInCategory');

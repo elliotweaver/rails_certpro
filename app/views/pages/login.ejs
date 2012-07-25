@@ -1,0 +1,23 @@
+<div class="page-header"><h1>User Login</h1></div>
+
+<% form_for(login, {action: 'login', method: 'POST', id: "login_form", class: 'form-horizontal'}, function (form) { %>
+
+    <%- errorMessagesFor(login) %>
+    <div class="control-group">
+       <%- form.label("username", false, {class: "control-label"}) %>
+       <div class="controls">
+           <%- form.input("username") %>
+       </div>
+    </div>
+    <div class="control-group">
+       <%- form.label("password", false, {class: "control-label"}) %>
+       <div class="controls">
+           <input type="password" id="Login_password" name="password" value="">
+       </div>
+    </div>
+
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> Lets Go', {class: 'btn btn-primary'}) %>
+    </div>
+
+<% });%>

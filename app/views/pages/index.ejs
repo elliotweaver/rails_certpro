@@ -24,6 +24,7 @@
         <h3>Enter Zip</h3><br>
         {{view Findpro.zipTextField placeholder="Zipcode" valueBinding="Findpro.finderController.zip"}}
         <button {{action "submitZip" target="Findpro.finderController"}}>Begin!</button>
+        {{Findpro.finderController.e_zip}}
       </div>
     {{/if}}
     

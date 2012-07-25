@@ -2,6 +2,7 @@ load('application');
 
 layout('admin');
 
+before(use('requireAdmin'), {except: ['getJobsInCategory', 'getJobs']});
 before(loadJob, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {

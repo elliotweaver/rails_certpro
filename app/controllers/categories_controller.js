@@ -2,6 +2,7 @@ load('application');
 
 layout('admin');
 
+before(use('requireAdmin'), {except: 'getCategories'});
 before(loadCategory, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {
